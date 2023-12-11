@@ -4,11 +4,11 @@
 
 void guitar_tuner(){
     get_audio_input();
+    make_window();
     while(true){
         std::vector<double> raw_data = get_audio_data();
-        for (int i = 0; i < raw_data.size(); i++){
-            std::cout << raw_data[i] << std::endl;
-        }
+        harmonic_product_spectrum(raw_data);
+        update_window(raw_data, SAMPLE_SIZE);
     }
 
 }

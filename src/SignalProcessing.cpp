@@ -47,6 +47,7 @@ double harmonic_product_spectrum(const std::vector<double> &signal){
         std::vector<double> w_n = downsample_signal(signal, n, anti_aliasing_filter);
         spectrums.push_back(w_n);
     }
+    /*
     // Print the contents of the 2D vector
     for (int i = 0; i < spectrums.size(); ++i) {
         for (int j = 0; j < spectrums[i].size(); ++j) {
@@ -54,6 +55,8 @@ double harmonic_product_spectrum(const std::vector<double> &signal){
         }
         std::cout << std::endl;
     }
+    */
+   
     // Multiply each element in the vector together - only go up to the maximum index of the most downsampled spectrum
     std::vector<double> hps;
     for (int i = 0; i < spectrums[downsample_cyles-1].size(); i++){

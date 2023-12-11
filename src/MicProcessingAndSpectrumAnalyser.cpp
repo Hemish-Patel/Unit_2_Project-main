@@ -47,9 +47,20 @@ SDL_AudioDeviceID microphone = 0;
 int buffer_int[SAMPLE_SIZE]; // create a buffer of ints to store the audio data for visualisation
 std::vector<std::complex<double>> transformed_buffer_complex(SAMPLE_SIZE); // create a buffer of complex doubles to store the audio data for fft
 std::vector<double> raw_data(SAMPLE_SIZE); // create a buffer of doubles to store the audio data for fft
+std::vector<double> audio_data(SAMPLE_SIZE);
+
 
 std::vector<double> get_audio_data(){
-    return raw_data;
+
+    return audio_data;
+}
+
+std::vector<double> convertdata(std::vector<std::complex<double>> vector){
+    std::vector<double> data;
+    for (int i = 0; i < vector.size(); i++){
+        audio_data[i] = abs(vector[i]);
+    }
+
 }
 
 int Show_spectrum(){ // arguments needed to maintain compatibility with the underlying system and the SDL library's expectations.
@@ -151,19 +162,20 @@ void display_to_window(std::atomic<bool>& quit){
                 break;
             }
         }
-        update_window(transformed_buffer_complex, SAMPLE_SIZE);
+        convertdata(transformed_buffer_complex);
+        update_window(audio_data, SAMPLE_SIZE);
     }
     destroy_window();
 }
 
-void update_window(std::vector<std::complex<double>>& vector, int size) {
+void update_window(std::vector<double>& vector, int size) {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     //clears the screen to black and sets the draw colour to white
 
     for (int i = 0; i <size-2; i++) {
-        SDL_RenderDrawLine(renderer, i, (500 - abs(vector[i])), i+1, (500 - abs(vector[i+1])));
+        SDL_RenderDrawLine(renderer, i, (500 - vector[i]), i+1, (500 - vector[i+1]));
         //cycle through the buffer and draw lines between each point
         //the y value is the magnitude of the sample, the x value is the sample number
         //moving accross the screen from left to right
