@@ -22,7 +22,7 @@ std::vector<double> downsample_signal(const std::vector<double> &signal, int fac
 }
 
 // Function to perform harmonic product spectrum on a signal 
-double harmonic_product_spectrum(const std::vector<double> &signal){
+std::vector<double> harmonic_product_spectrum(const std::vector<double> &signal){
     double fundamental_frequency = 0;
     int downsample_cyles = 4; 
     // 2D vector to hold spectrums
@@ -64,15 +64,17 @@ double harmonic_product_spectrum(const std::vector<double> &signal){
         for (int j = downsample_cyles - 1; j >= 0; j--){
             element_product *= spectrums[j][i];
         }
-        hps.push_back(element_product);
+        hps.push_back(element_product/100000);
     }
-    // Find max element in hps vector
-    auto max_iter = std::max_element(hps.begin(), hps.end());
-    if (max_iter != hps.end()) {
-        fundamental_frequency = *max_iter;
-    }
-    std::cout << "FUNDAMENTAL FREQUENCY:" << fundamental_frequency << std::endl;
-    return fundamental_frequency;
+
+    return hps;
+    // // Find max element in hps vector
+    // auto max_iter = std::max_element(hps.begin(), hps.end());
+    // if (max_iter != hps.end()) {
+    //     fundamental_frequency = *max_iter;
+    // }
+    // std::cout << "FUNDAMENTAL FREQUENCY:" << fundamental_frequency << std::endl;
+    // return fundamental_frequency;
 }
 
 // TODO - Need instrument class implementation from group members 
@@ -81,7 +83,6 @@ double tuning_correction(double fundamental_frequency, Instrument instrument){
 
     return correction_val;
 }
-
 // ----------------------------------------------------------
 // ########### AUTOCORRELATION PITCH ESTIMATION ###########
 // ----------------------------------------------------------
