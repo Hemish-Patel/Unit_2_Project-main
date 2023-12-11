@@ -91,7 +91,7 @@ double rxx(int l, int N, const std::vector<double>& x) {
     return sum;
 }
 
-std::vector<double> autocorrelationWithShiftingLag(const std::vector<double> &samples) {
+std::vector<double> autocorrelation_with_shifting_lag(const std::vector<double> &samples) {
     int N = samples.size();
     std::vector<double> autocorrelation(N);
 
@@ -103,7 +103,7 @@ std::vector<double> autocorrelationWithShiftingLag(const std::vector<double> &sa
 }
 
 // Scale autocorrelation results between 1 and -1 to simplify peak detector 
-std::vector<double> maxAbsoluteScaling(const std::vector<double> &data) {
+std::vector<double> max_absolute_scaling(const std::vector<double> &data) {
     double xMax = *std::max_element(data.begin(), data.end(), [](double a, double b) {
         return std::abs(a) < std::abs(b);
     });
@@ -115,11 +115,11 @@ std::vector<double> maxAbsoluteScaling(const std::vector<double> &data) {
 }
 
 // Autocorrelation based pitch estimator - to be used in conjunction with HPS
-double estimatePitch(const std::vector<double> &signal){
+double estimate_pitch(const std::vector<double> &signal){
     double pitch = 0; 
     // Use filters to reduce noise
-    std::vector<double> auto_correl = autocorrelationWithShiftingLag(signal);
-    std::vector<double> normalised = maxAbsoluteScaling(auto_correl);
+    std::vector<double> auto_correl = autocorrelation_with_shifting_lag(signal);
+    std::vector<double> normalised = max_absolute_scaling(auto_correl);
     // Zero crossing detector used to estimate frequency 
     double crossings = 0; 
     for (int i = 1; i < normalised.size(); i++) {
