@@ -46,7 +46,7 @@ SDL_AudioDeviceID microphone = 0;
 //so can be closed by the stop_audio_input function
 int buffer_int[SAMPLE_SIZE]; // create a buffer of ints to store the audio data for visualisation
 std::vector<std::complex<double>> transformed_buffer_complex(SAMPLE_SIZE); // create a buffer of complex doubles to store the audio data for fft
-
+std::vector<double> raw_data(SAMPLE_SIZE); // create a buffer of doubles to store the audio data for fft
 
 
 int Show_spectrum(){ // arguments needed to maintain compatibility with the underlying system and the SDL library's expectations.
@@ -117,6 +117,7 @@ int get_audio_input(){
 void audioCallback(void* userdata, Uint8* stream, int len) {
     Sint16* buffer = reinterpret_cast<Sint16*>(stream); // cast the stream to a Sint16 pointer
     for(int i = 0; i < SAMPLE_SIZE; i++) {
+        raw_data[i] = buffer[i]; // copy the data from the stream to the int buffer
         transformed_buffer_complex[i] = std::complex<double>(buffer[i]/256,0); 
         // copy the data from the int buffer to the complex double buffer, setting the imaginary part to 0
     }

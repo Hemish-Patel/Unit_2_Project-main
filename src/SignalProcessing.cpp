@@ -91,7 +91,7 @@ double rxx(int l, int N, const std::vector<double>& x) {
     return sum;
 }
 
-std::vector<double> autocorrelationWithShiftingLag(const std::vector<double> &samples) {
+std::vector<double> autocorrelation_with_shiftingLag(const std::vector<double> &samples) {
     int N = samples.size();
     std::vector<double> autocorrelation(N);
 

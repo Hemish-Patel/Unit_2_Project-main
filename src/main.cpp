@@ -106,8 +106,8 @@ void menu_item_1() {
   main_menu();
 }
 void menu_item_2() {
-  std::cout << "\n>> Menu 2\n";
-  std::cout << "\nSome code here does something useful\n";
+  std::cout << "\n>> Guitar Tuner\n";
+  guitar_tuner();
   // you can call a function from here that handles menu 2
   go_back_to_main();
 }
