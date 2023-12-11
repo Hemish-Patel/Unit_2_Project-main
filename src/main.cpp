@@ -2,6 +2,7 @@
 #include "MicProcessingAndSpectrumAnalyser.hpp"
 #include <iostream>
 #include <regex>
+#include "include/GuitarTuner.hpp"
 
 #ifdef TEST_MAIN
 

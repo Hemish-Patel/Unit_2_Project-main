@@ -48,6 +48,9 @@ int buffer_int[SAMPLE_SIZE]; // create a buffer of ints to store the audio data 
 std::vector<std::complex<double>> transformed_buffer_complex(SAMPLE_SIZE); // create a buffer of complex doubles to store the audio data for fft
 std::vector<double> raw_data(SAMPLE_SIZE); // create a buffer of doubles to store the audio data for fft
 
+std::vector<double> get_audio_data(){
+    return raw_data;
+}
 
 int Show_spectrum(){ // arguments needed to maintain compatibility with the underlying system and the SDL library's expectations.
 
