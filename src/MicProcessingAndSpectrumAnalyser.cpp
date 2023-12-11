@@ -60,6 +60,7 @@ std::vector<double> convertdata(std::vector<std::complex<double>> vector){
     for (int i = 0; i < vector.size(); i++){
         audio_data[i] = abs(vector[i]);
     }
+    return data;
 
 }
 
