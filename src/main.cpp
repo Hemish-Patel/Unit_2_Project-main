@@ -76,15 +76,17 @@ void select_menu_item(int input) {
 }
 
 void print_main_menu() {
-  std::cout << "\n----------- Main menu -----------\n";
-  std::cout << "|\t\t\t\t|\n";
-  std::cout << "|\t1. Spectrum Analyser\t|\n";
-  std::cout << "|\t2. Menu item 2\t\t|\n";
-  std::cout << "|\t3. Menu item 3\t\t|\n";
-  std::cout << "|\t4. Menu item 4\t\t|\n";
-  std::cout << "|\t5. Exit\t\t\t|\n";
-  std::cout << "|\t\t\t\t|\n";
-  std::cout << "---------------------------------\n";
+  std::cout << "\n|---------------------------------------|\n";
+  std::cout << "\n|--------- Frequency Analyser ----------|\n";
+  std::cout << "\n|---------------------------------------|\n";
+  std::cout << "|\t\t\t\t\t|\n";
+  std::cout << "|\t1. Spectrum Analyser\t\t|\n";
+  std::cout << "|\t2. Chebyshev Filter Designer\t|\n";
+  std::cout << "|\t3. Export\t\t\t|\n";
+  std::cout << "|\t \t\t\t\t|\n";
+  std::cout << "|\t5. Exit\t\t\t\t|\n";
+  std::cout << "|\t\t\t\t\t|\n";
+  std::cout << "-----------------------------------------\n";
 }
 
 void go_back_to_main() {
@@ -107,10 +109,10 @@ void menu_item_1() {
   main_menu();
 }
 void menu_item_2() {
-  std::cout << "\n>> Guitar Tuner\n";
-  guitar_tuner();
+  std::cout << "\n>> Chebyshev Filter Designer\n";
+  Cheb_filter();
   // you can call a function from here that handles menu 2
-  go_back_to_main();
+  main_menu();
 }
 void menu_item_3() {
   std::cout << "\n>> Menu 3\n";

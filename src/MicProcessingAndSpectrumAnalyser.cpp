@@ -10,6 +10,7 @@
 
 #include "include/MicProcessingAndSpectrumAnalyser.hpp"
 #include "include/Config.hpp"
+#include "include/SignalProcessing.hpp"
 
 /*
 
@@ -56,9 +57,9 @@ std::vector<double> get_audio_data(){
 }
 
 std::vector<double> convertdata(std::vector<std::complex<double>> vector){
-    std::vector<double> data;
+    std::vector<double> data(SAMPLE_SIZE);
     for (int i = 0; i < vector.size(); i++){
-        audio_data[i] = abs(vector[i]);
+        data[i] = double(abs(vector[i]));
     }
     return data;
 
@@ -163,8 +164,26 @@ void display_to_window(std::atomic<bool>& quit){
                 break;
             }
         }
-        convertdata(transformed_buffer_complex);
+        std::vector<double> audio_data = convertdata(transformed_buffer_complex);
         update_window(audio_data, SAMPLE_SIZE);
+    }
+    destroy_window();
+}
+
+void display_to_window2(std::atomic<bool>& quit, ChebyshevI my_filter){ 
+    make_window(); // creates the window and renderer
+    while (!quit) {
+        SDL_Event event;
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_QUIT) {
+                quit = true;
+                break;
+            }
+        }
+        std::vector<double> transformed_buffer_notcomplex = convertdata(transformed_buffer_complex);
+
+        std::vector<double> vector = my_filter.apply_filter(transformed_buffer_notcomplex);
+        update_window(vector, SAMPLE_SIZE);
     }
     destroy_window();
 }

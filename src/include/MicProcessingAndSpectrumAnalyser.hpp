@@ -6,6 +6,7 @@
 #include <atomic>
 #include <vector>
 #include <complex>
+#include "SignalProcessing.hpp"
 
 // Declare function prototypes //
 int make_window(); // initialize SDL2 subsystems to create window and renderer
@@ -15,6 +16,7 @@ void audioCallback(void* userdata, Uint8* stream, int len); // callback function
 int stop_audio_input(); // closes the microphone and quits SDL2 audio subsystem
 void update_window(std::vector<double>& vector, int size); // updates the window with the audio data from transformed_buffer_complex vector
 void display_to_window(std::atomic<bool>& quit); // handles everything needed to create and update window, its done in a different thread
+void display_to_window2(std::atomic<bool>& quit, ChebyshevI my_filter);
 void fft(std::vector<std::complex<double>>& vector); // performs the fft on the audio data
 std::vector<double> get_audio_data();
 std::vector<double> convertdata(std::vector<std::complex<double>> vector);
