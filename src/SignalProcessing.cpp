@@ -38,9 +38,11 @@ std::vector<double> harmonic_product_spectrum(const std::vector<double> &signal)
     anti_aliasing_filter.calculate_coefficients();
     // Resample the signal at different rates 
     for (int n = 2; n <= downsample_cyles; n++){ 
+    
         // TODO - precompute these values to increase efficiency 
         // Adjust the filter parameters to the correct nyquist frequency 
         filter_setup.cutoff_frequency = 0.5/n;
+        std::cout << "CUTOFF FREQ: " << filter_setup.cutoff_frequency << std::endl;
         anti_aliasing_filter.set_filter_params(filter_setup);
         anti_aliasing_filter.calculate_coefficients();
         // Downsample the signal and add the spectrum to the array
